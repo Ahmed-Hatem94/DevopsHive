@@ -1,0 +1,35 @@
+name: ci
+run-name: Ci actions
+on: [push]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - 
+        name: checkout
+        uses: actions/checkout@v4
+
+      - 
+        name: lint dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+      - 
+        name: build docker file
+        run: docker build . -t hive
+
+      - 
+        name: run container image
+        run: docker run --name hive  --rm -d -p 8000:8000 hive
+
+  test:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - 
+        name: test
+        run: sleep 30; pytest 
+
+      - 
+        name: stop container
+        run: docker stop hive
