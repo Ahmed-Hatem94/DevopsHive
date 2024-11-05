@@ -7,10 +7,9 @@ VERSION = "v0.0.2"
 time_now = datetime.utcnow()
 hour_earlier = time_now - timedelta(hours=1)
 F_hour_earlier = hour_earlier.isoformat(timespec='seconds') + 'Z'
-BOXID="5eba5fbad46fb8001b799786"
-SENSORID="5eba5fbad46fb8001b799789"
-
-print (F_hour_earlier)
+BOXID = "eba5fbad46fb8001b799786"
+SENSORID ="5eba5fbad46fb8001b799789"
+values = []
 
 app = FastAPI()
 
@@ -23,5 +22,9 @@ async def version():
 async def temp():
     """returns temperature from specific box for the last hour"""
     url = f"https://api.opensensemap.org/boxes/{BOXID}/data/{SENSORID}?from-date={F_hour_earlier}"
-    test=requests.get(url,timeout=30)
-    return test.json()
+    request=requests.get(url,timeout=30)
+    temp_values = request.json()
+    for item in temp_values:
+        values.append(item['value'])
+    values_float=list(map(float, values))
+    return sum(values_float) / len (values_float)

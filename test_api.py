@@ -1,6 +1,5 @@
 """importing pytest and requests to test endpoints"""
 import requests
-import pytest
 
 VERSION_ENDPOINT='http://127.0.0.1:8000/version'
 TEMPERATURE_ENDPOINT='http://127.0.0.1:8000/temperature'
