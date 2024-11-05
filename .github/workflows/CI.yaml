@@ -39,7 +39,7 @@ jobs:
 
       -
         name: get /version
-        run: curl http://localhost:8000/version
+        run: curl http://127.0.0.1:8000/version
 
       - 
         name: test docker container
