@@ -36,6 +36,11 @@ jobs:
       - 
         name: run container image
         run: docker run --name hive  --rm -d -p 8000:8000 hive 
+
+      -
+        name: get /version
+        run: curl http://localhost:80000/version
+
       - 
         name: test docker container
         run: sleep 20; pytest  
