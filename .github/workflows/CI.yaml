@@ -33,23 +33,12 @@ jobs:
       - 
         name: build docker file
         run: docker build . -t hive
-
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-
       - 
         name: run container image
-        run: docker run --name hive  --rm -d -p 8000:8000 hive
-
+        run: docker run --name hive  --rm -d -p 8000:8000 hive 
       - 
         name: test docker container
-        run: sleep 20; pytest 
-
+        run: sleep 20; pytest  
       - 
         name: stop container
         run: docker stop hive
-      
-      
