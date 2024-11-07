@@ -31,7 +31,7 @@ jobs:
 
       -  
         name: build docker file
-        run: docker build . -t ahatem/DevopsHive:latest
+        run: docker build . -t ahatem/devopshive:latest
 
       -
         name: Login to Docker Hub
@@ -46,10 +46,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: ahatem/DevopsHive:latest
+          tags: ahatem/devopshive:latest
       - 
         name: run container image
-        run: docker run --name hive  --rm -d -p 8000:8000 DevopsHive 
+        run: docker run --name hive  --rm -d -p 8000:8000 ahatem/devopshive 
 
       - 
         name: test docker container
