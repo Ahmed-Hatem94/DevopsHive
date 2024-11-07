@@ -27,4 +27,6 @@ async def temp():
     for item in temp_values:
         values.append(item['value'])
     values_float=list(map(float, values))
-    return sum(values_float) / len (values_float)
+    avg_temp = sum(values_float) / len (values_float)
+    rounded_avg_temp=round(avg_temp,0)
+    return rounded_avg_temp
