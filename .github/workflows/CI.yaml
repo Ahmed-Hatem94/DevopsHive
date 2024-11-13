@@ -8,6 +8,9 @@ jobs:
       - 
         name: checkout
         uses: actions/checkout@v4
+      -
+        name: Get application Version
+        run:  echo "$(cat main.py | grep "APP_VERSION" -m 1)" > $GITHUB_ENV
       
       - 
         name: setup docker build
@@ -29,10 +32,6 @@ jobs:
        with:
          dockerfile: Dockerfile
 
-      -  
-        name: build docker file
-        run: docker build . -t ahatem/devopshive:latest
-
       -
         name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -46,10 +45,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: ahatem/devopshive:latest
+          tags: ahatem/devopshive:latest, ahatem/devopshive:{{$APP_VERSION}}
       - 
         name: run container image
-        run: docker run --name hive  --rm -d -p 8000:8000 ahatem/devopshive 
+        run: docker run --name hive  --rm -d -p 8000:8000 ahatem/devopshive:latest 
 
       - 
         name: test docker container
