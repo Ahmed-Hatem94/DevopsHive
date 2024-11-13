@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4
       -
         name: Get application Version
-        run:  echo "$(cat main.py | grep "APP_VERSION" -m 1)" >> $GITHUB_ENV
+        run:  echo "$(cat main.py | grep "APP_VERSION" -m 1 | tr -d '"')" >> $GITHUB_ENV
       
       - 
         name: setup docker build
