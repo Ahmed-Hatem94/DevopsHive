@@ -1,9 +1,10 @@
 """Module for time generating"""
 from datetime import datetime, timedelta
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 import requests
 
-VERSION = "v0.0.2"
+APP_VERSION="v0.0.3"
 time_now = datetime.utcnow()
 hour_earlier = time_now - timedelta(hours=1)
 F_hour_earlier = hour_earlier.isoformat(timespec='seconds') + 'Z'
@@ -13,10 +14,21 @@ values = []
 
 app = FastAPI()
 
+@app.get("/",response_class=HTMLResponse)
+async def main():
+    """returns main page"""
+    return """
+    <html>
+        <body>
+            <h1> Welcome to our app </h1>
+        </body> 
+    </html>
+    """
+
 @app.get("/version")
 async def version():
     """returns app version"""
-    return VERSION
+    return APP_VERSION
 
 @app.get("/temperature")
 async def temp():
@@ -29,4 +41,18 @@ async def temp():
     values_float=list(map(float, values))
     avg_temp = sum(values_float) / len (values_float)
     rounded_avg_temp=round(avg_temp,0)
-    return rounded_avg_temp
+    if rounded_avg_temp < 10:
+        status = "Too Cold"
+    elif rounded_avg_temp >= 10 & rounded_avg_temp < 36:
+        status = "Good"
+    else:
+        status = "Too Hot"
+    return "average Temperature: " + str(rounded_avg_temp) + " & the status is: " + status
+
+
+
+
+@app.get("/metrics")
+async def metrics():
+    """returns metrics"""
+    return "This part is still under construction"
