@@ -52,7 +52,7 @@ jobs:
 
       - 
         name: test docker container
-        run: sleep 20; pytest  
+        run: pytest  
       - 
         name: stop container
         run: docker stop hive
