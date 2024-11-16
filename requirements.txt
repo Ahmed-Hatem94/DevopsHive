@@ -28,6 +28,7 @@ pydantic-settings==2.6.1
 pydantic_core==2.23.4
 Pygments==2.18.0
 pytest==8.3.3
+pytest-retry==1.6.3
 python-dotenv==1.0.1
 python-multipart==0.0.17
 pytz==2024.2
