@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import requests
 
-APP_VERSION="v0.0.3"
+APP_VERSION="v0.0.4"
 time_now = datetime.utcnow()
 hour_earlier = time_now - timedelta(hours=1)
 F_hour_earlier = hour_earlier.isoformat(timespec='seconds') + 'Z'
