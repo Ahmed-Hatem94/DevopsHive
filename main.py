@@ -4,12 +4,13 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import requests
 
+
 APP_VERSION="v0.0.4"
 time_now = datetime.utcnow()
 hour_earlier = time_now - timedelta(hours=1)
 F_hour_earlier = hour_earlier.isoformat(timespec='seconds') + 'Z'
-BOXID = "eba5fbad46fb8001b799786"
-SENSORID ="5eba5fbad46fb8001b799789"
+BOXID = "579e683668b4a21200661a6d"
+SENSORID ="579e683668b4a21200661a73"
 values = []
 
 app = FastAPI()
@@ -20,7 +21,7 @@ async def main():
     return """
     <html>
         <body>
-            <h1> Welcome to our app </h1>
+            <h1>Welcome to our App</h1>
         </body> 
     </html>
     """
