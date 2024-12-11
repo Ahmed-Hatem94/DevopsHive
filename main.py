@@ -2,21 +2,16 @@
 from datetime import datetime, timedelta
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from kubernetes import client, config
 import requests
 
 
-config.load_kube_config()
-v1 = client.CoreV1Api()
-ret = v1.list_pod_for_all_namespaces(watch=False)
 APP_VERSION="v0.0.4"
 time_now = datetime.utcnow()
 hour_earlier = time_now - timedelta(hours=1)
 F_hour_earlier = hour_earlier.isoformat(timespec='seconds') + 'Z'
-BOXID = "eba5fbad46fb8001b799786"
-SENSORID ="5eba5fbad46fb8001b799789"
+BOXID = "579e683668b4a21200661a6d"
+SENSORID ="579e683668b4a21200661a73"
 values = []
-X = []
 app = FastAPI()
 
 @app.get("/",response_class=HTMLResponse)
@@ -25,7 +20,7 @@ async def main():
     return """
     <html>
         <body>
-            <h1> Welcome to our app </h1>
+            <h1>Welcome to our App</h1>
         </body> 
     </html>
     """
@@ -60,7 +55,3 @@ async def temp():
 @app.get("/metrics")
 async def metrics():
     """returns metrics"""
-    # http://127.0.0.1:8001/apis/metrics.k8s.io/v1beta1/pods?labelSelector=k8s-app%3Dkube-dns
-    for i in ret.items:
-        X.append([i.status.pod_ip, i.metadata.namespace, i.metadata.name])
-    return X
