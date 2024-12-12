@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: true
+          load: true
           tags: ahatem/devopshive:latest, ahatem/devopshive:${{ env.APP_VERSION }}
       - 
         name: run container image
@@ -52,7 +52,15 @@ jobs:
 
       - 
         name: test docker container
-        run: pytest  
+        run: pytest
+
+      - 
+        name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ahatem/devopshive:latest, ahatem/devopshive:${{ env.APP_VERSION }}
       - 
         name: stop container
         run: docker stop hive
