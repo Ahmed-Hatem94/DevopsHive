@@ -5,10 +5,10 @@ from fastapi.responses import HTMLResponse
 import requests
 
 
-APP_VERSION="v0.0.4"
+APP_VERSION="v0.0.5"
 time_now = datetime.utcnow()
 hour_earlier = time_now - timedelta(hours=1)
-F_hour_earlier = hour_earlier.isoformat(timespec='seconds') + 'Z'
+F_hour_earlier = hour_earlier.isoformat(timespec='milliseconds') + 'Z'
 BOXID = "579e683668b4a21200661a6d"
 SENSORID ="579e683668b4a21200661a73"
 values = []
@@ -44,7 +44,7 @@ async def temp():
     rounded_avg_temp=round(avg_temp,0)
     if rounded_avg_temp < 10:
         status = "Too Cold"
-    elif rounded_avg_temp >= 10 & rounded_avg_temp < 36:
+    elif 10 <= rounded_avg_temp < 36:
         status = "Good"
     else:
         status = "Too Hot"
