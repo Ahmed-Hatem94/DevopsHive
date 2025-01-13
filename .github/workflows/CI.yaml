@@ -1,6 +1,10 @@
 name: ci
 run-name: Ci actions
-on: [push]
+on:
+  push:
+    branches:
+      - "main"
+      - "phase_4"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,11 +44,11 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}      
 
       -  
-        name: Build and push
+        name: Build only for testing
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: true
+          load: true
           tags: ahatem/devopshive:latest, ahatem/devopshive:${{ env.APP_VERSION }}
       - 
         name: run container image
@@ -52,7 +56,15 @@ jobs:
 
       - 
         name: test docker container
-        run: pytest  
+        run: pytest
+
+      - 
+        name: push to dockerhub
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ahatem/devopshive:latest, ahatem/devopshive:${{ env.APP_VERSION }}
       - 
         name: stop container
         run: docker stop hive
